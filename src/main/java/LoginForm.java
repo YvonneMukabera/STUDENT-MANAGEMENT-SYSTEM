@@ -125,7 +125,6 @@ if (imgURL != null) {
         progressBar.setToolTipText("");
         progressBar.setValue(20);
         progressBar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        progressBar.setString("20%");
         progressBar.setStringPainted(true);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

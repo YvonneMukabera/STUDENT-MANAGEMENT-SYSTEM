@@ -32,9 +32,9 @@ public class DatabaseConnection {
             boolean loginSuccess = rs.next();
 
             if (loginSuccess) {
-                System.out.println("Login successful for user: " + username);
+                System.out.println("Login successful " + username);
             } else {
-                System.out.println("Login failed for user: " + username);
+                System.out.println("Login failed" + username);
             }
 
             return loginSuccess;
