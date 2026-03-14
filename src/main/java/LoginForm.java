@@ -29,7 +29,6 @@ if (imgURL != null) {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -49,7 +48,6 @@ if (imgURL != null) {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student Management System - Login");
         setBackground(new java.awt.Color(204, 204, 204));
-        setPreferredSize(new java.awt.Dimension(699, 416));
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 formFocusLost(evt);
@@ -121,7 +119,7 @@ if (imgURL != null) {
         lblMessage.setText("Invalid username or password, please try again");
 
         progressBar.setBackground(new java.awt.Color(255, 255, 255));
-        progressBar.setForeground(new java.awt.Color(0, 0, 0));
+        progressBar.setForeground(new java.awt.Color(51, 255, 51));
         progressBar.setToolTipText("");
         progressBar.setValue(20);
         progressBar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
