@@ -8,18 +8,19 @@ public class LoginForm extends javax.swing.JFrame {
     /**
      * Creates new form LoginForm
      */
-    public LoginForm() {
-        initComponents();
+  public LoginForm() {
+         initComponents();
         setupLoginForm();
-        // ===== Load logo safely =====
-java.net.URL imgURL = getClass().getResource("/image/logo.png");
-if (imgURL != null) {
-    jLabel6.setIcon(new javax.swing.ImageIcon(imgURL));
-} else {
-    System.err.println("Logo image not found!");
-    jLabel6.setText("Logo missing");
-}
+        // Load logo safely
+        java.net.URL imgURL = getClass().getResource("/image/logo.png");
+        if (imgURL != null) {
+            jLabel6.setIcon(new javax.swing.ImageIcon(imgURL));
+        } else {
+            System.err.println("Logo image not found!");
+            jLabel6.setText("Logo missing");
+        }
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -232,88 +233,59 @@ if (imgURL != null) {
 
 private void setupLoginForm() {
     // Hide progress bar initially
-    progressBar.setVisible(false);
-    progressBar.setStringPainted(true); // Show percentage text
-    
-    // Load saved username if any
-    loadRememberMe();
-    
-    // Add action listener for Enter key in password field
-    txtPassword.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btnLogin.doClick(); // Trigger login when Enter is pressed
-        }
-    });
-    
-    // Set initial message
-    lblMessage.setText("Please login to continue");
-    lblMessage.setForeground(java.awt.Color.BLUE);
-
+   progressBar.setVisible(false);
+        progressBar.setStringPainted(true);
+        loadRememberMe();
+        txtPassword.addActionListener(evt -> btnLogin.doClick());
+        lblMessage.setText("Please login to continue");
+        lblMessage.setForeground(java.awt.Color.BLUE);
 }
 
 // Method to convert string to Title Case (lab requirement)
 private String makeTitleCase(String input) {
-    if (input == null || input.isEmpty()) {
-        return input;
-    }
-    
-    // Split the string into words
-    String[] words = input.toLowerCase().split(" ");
-    StringBuilder titleCase = new StringBuilder();
-    
-    for (String word : words) {
-        if (word.length() > 0) {
-            // Capitalize first letter, keep rest lowercase
-            titleCase.append(Character.toUpperCase(word.charAt(0)))
-                    .append(word.substring(1))
-                    .append(" ");
+    if (input == null || input.isEmpty()) return input;
+        String[] words = input.toLowerCase().split(" ");
+        StringBuilder titleCase = new StringBuilder();
+        for (String word : words) {
+            if (word.length() > 0) {
+                titleCase.append(Character.toUpperCase(word.charAt(0)))
+                        .append(word.substring(1)).append(" ");
+            }
         }
-    }
-    
-    return titleCase.toString().trim(); // Remove trailing space
+        return titleCase.toString().trim(); // Remove trailing space
 }
 
 // Method to demonstrate more string manipulation (lab requirement)
-private String manipulateStringDemo(String input) {
+//private String manipulateStringDemo(String input) {
     // substring example
-    String firstThree = input.length() > 3 ? input.substring(0, 3) : input;
+    // String firstThree = input.length() > 3 ? input.substring(0, 3) : input;
     
     // concatenation example
-    String result = "User: " + firstThree;
+   // return "User: " + firstThree;
     
-    return result;
-}
+//}
 
 
 private void saveRememberMe(String username) {
     // Save username to a file or preferences
-    java.util.prefs.Preferences prefs = java.util.prefs.Preferences.userRoot();
-    prefs.put("remembered_username", username);
+     Preferences prefs = Preferences.userRoot();
+        prefs.put("remembered_username", username);
 }
 
 private void loadRememberMe() {
-    java.util.prefs.Preferences prefs = java.util.prefs.Preferences.userRoot();
-    String savedUsername = prefs.get("remembered_username", "");
-    
-    if (!savedUsername.isEmpty()) {
-        txtUsername.setText(savedUsername);
-        chkRememberMe.setSelected(true);
-    }
+    Preferences prefs = Preferences.userRoot();
+        String savedUsername = prefs.get("remembered_username", "");
+        if (!savedUsername.isEmpty()) {
+            txtUsername.setText(savedUsername);
+            chkRememberMe.setSelected(true);
+        }
 }
 
-private void openMainPage() {
+private void openMainPage(UserRole role) {
     // This will launch your main management form
     // For now, let's just show a message
-    SwingUtilities.invokeLater(new Runnable() {
-        public void run() {
-            // You'll replace this with your actual main page
-            JOptionPane.showMessageDialog(null, "Main page would open here!");
-            
-            // Later, when you create MainPage class:
-            // MainPage mainPage = new MainPage();
-            // mainPage.setVisible(true);
-        }
-    });
+    MainPage mainPage = new MainPage(role);
+        mainPage.setVisible(true);
 }
 // ===== END OF METHODS TO ADD =====
     private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
@@ -327,15 +299,13 @@ private void openMainPage() {
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
     // Clear all fields
-    txtUsername.setText("");
-    txtPassword.setText("");
-    chkRememberMe.setSelected(false);
-    lblMessage.setText("");
-    progressBar.setValue(0);
-    progressBar.setVisible(false);
-    
-    // Return focus to username field
-    txtUsername.requestFocus();
+   txtUsername.setText("");
+        txtPassword.setText("");
+        chkRememberMe.setSelected(false);
+        lblMessage.setText("");
+        progressBar.setValue(0);
+        progressBar.setVisible(false);
+        txtUsername.requestFocus();
 
     }//GEN-LAST:event_btnResetActionPerformed
 
@@ -356,10 +326,6 @@ private void openMainPage() {
         return; // Stop here if empty
     }
     
-    // STRING MANIPULATION: Convert username to lowercase for case-insensitive comparison
-    // This is one of your lab requirements!
-    String usernameForCheck = username.toLowerCase();
-    
     // VALIDATION STEP 2: Check length (basic validation)
     if (username.length() < 3) {
         lblMessage.setText("Username must be at least 3 characters!");
@@ -372,17 +338,16 @@ private void openMainPage() {
     progressBar.setVisible(true);
     
     // Create a SwingWorker to handle login in background (so UI doesn't freeze)
-    SwingWorker<Boolean, Integer> worker = new SwingWorker<Boolean, Integer>() {
+    SwingWorker<UserRole, Integer> worker = new SwingWorker<UserRole, Integer>() {
         @Override
-        protected Boolean doInBackground() throws Exception {
-            // Simulate progress
-            for (int i = 0; i <= 100; i += 20) {
-                Thread.sleep(100); // Small delay to show progress
-                publish(i); // Update progress
-            }
-            
-            // Actually validate login with database
-            return DatabaseConnection.validateLogin(username, password);
+          protected UserRole doInBackground() throws Exception {
+                for (int i = 0; i <= 100; i += 20) {
+                    
+                    publish(i);
+                }
+                Thread.sleep(100);
+                // Now validateLogin returns UserRole
+                return DatabaseConnection.validateLogin(username, password);
         }
         
         @Override
@@ -394,46 +359,39 @@ private void openMainPage() {
         
         @Override
         protected void done() {
-            try {
-                boolean isValid = get(); // Get the result from doInBackground()
-                
-                if (isValid) {
-                    // Login successful!
-                    lblMessage.setText("Login successful! Loading main page...");
-                    lblMessage.setForeground(java.awt.Color.GREEN);
-                    
-                    // STRING MANIPULATION: Title case for welcome message (lab requirement)
-                    String welcomeName = makeTitleCase(username);
-                    JOptionPane.showMessageDialog(null, "Welcome " + welcomeName + "!");
-                    
-                    // Handle Remember Me
-                    if (chkRememberMe.isSelected()) {
-                        saveRememberMe(username);
+             try {
+                    UserRole role = get(); // Get the UserRole result
+                    if (role != null) {
+                        // Login successful
+                        lblMessage.setText("Login successful! Loading main page...");
+                        lblMessage.setForeground(java.awt.Color.GREEN);
+
+                        String welcomeName = makeTitleCase(username);
+                        JOptionPane.showMessageDialog(null, "Welcome " + welcomeName + "!");
+
+                        if (chkRememberMe.isSelected()) {
+                            saveRememberMe(username);
+                        }
+
+                        // Open MainPage with the correct role
+                        openMainPage(role);
+
+                        // Close login window
+                        dispose();
+                    } else {
+                        // Login failed
+                        lblMessage.setText("Invalid username or password, please try again");
+                        lblMessage.setForeground(java.awt.Color.RED);
+                        progressBar.setValue(0);
+                        txtPassword.setText("");
                     }
-                    
-                    // Open the main page (you'll create this later)
-                    openMainPage();
-                    
-                    // Close login page
-                    dispose(); // Closes the login window
-                    
-                } else {
-                    // Login failed
-                    lblMessage.setText("Invalid username or password, please try again");
-                    lblMessage.setForeground(java.awt.Color.RED);
-                    progressBar.setValue(0);
-                    
-                    // Clear password field for security
-                    txtPassword.setText("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    lblMessage.setText("Error during login: " + e.getMessage());
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                lblMessage.setText("Error during login: " + e.getMessage());
             }
-        }
-    };
-    
-    worker.execute(); // Start the background task
+        };
+        worker.execute(); // Start the background task
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -464,12 +422,18 @@ private void openMainPage() {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginForm().setVisible(true);
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
-        });
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+        java.awt.EventQueue.invokeLater(() -> new LoginForm().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -488,5 +452,5 @@ private void openMainPage() {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
-// Method to convert string to Title Case (lab requirement)
+
 }

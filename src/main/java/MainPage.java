@@ -1,48 +1,58 @@
 
-package ui;
-import database.StudentDAO;
- import java.awt.Color;
+import java.awt.Color;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane; // Add this if not already imported
 //import javax.swing.table.DefaultTableModel;
-import mode.Student;
+ 
 
     
 public class MainPage extends javax.swing.JFrame {
-    StudentDAO dao = new StudentDAO();
+     private StudentDAO dao = new StudentDAO();
+    private UserRole role;
+
     
-    private final UserRole role; // Add this field
+     
 
     // Change this constructor!
     public MainPage(UserRole role) {
-        this.role = role;
+         
+    this.role = role;
+    initComponents();
+    applyPermissions();
+    refreshTable();
+    this.setLocationRelativeTo(null);
+
+    }
+    
+    // Default constructor (if needed)
+    public MainPage() {
+        this.role = UserRole.ADMIN; // Default role
         initComponents();
-        applyPermissions(); // Call a method to restrict buttons
+        applyPermissions();
         refreshTable();
         this.setLocationRelativeTo(null);
     }
-//
-//    MainPage() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-    
     private void applyPermissions() {
-        if (role == UserRole.STUDENT) {
-            jButton1.setEnabled(false); // Add button
-            jButton2.setEnabled(false); // Update button
-            jButton3.setEnabled(false); // Delete button
-            lblStatus.setText("Role: Student (View Only)");
-        } else if (role == UserRole.TEACHER) {
-            jButton3.setEnabled(false); // Teachers can't delete
-            lblStatus.setText("Role: Teacher");
-        } else {
-            lblStatus.setText("Role: Admin");
+   lblStatus.setText(
+    switch (role) {
+        case STUDENT -> {
+            jButton1.setEnabled(false); // Add
+            jButton2.setEnabled(false); // Update
+            jButton3.setEnabled(false); // Delete
+            yield "Role: Student (View Only)";
         }
+        case TEACHER -> {
+            jButton3.setEnabled(false); // Delete
+            yield "Role: Teacher";
+        }
+        case ADMIN -> "Role: Admin";
     }
+);
+   
+    } 
     
-        
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainPage.class.getName());
-
 //    public  MainPage() {
 //        initComponents();
 //    }
@@ -547,6 +557,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
+        cmbCourse.requestFocus();
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void cmbCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCourseActionPerformed
@@ -555,89 +566,174 @@ public class MainPage extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Filtering & Sorting feature coming soon!");
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
+           txtEmail.requestFocus();
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void txtMarksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarksActionPerformed
         // TODO add your handling code here:
+        jButton1.doClick();
     }//GEN-LAST:event_txtMarksActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-    String name = txtName.getText();
-    String email = txtEmail.getText();
+   // ADD Student functionality
+    String name = txtName.getText().trim();
+    String email = txtEmail.getText().trim();
     String course = cmbCourse.getSelectedItem().toString();
-    int marks = Integer.parseInt(txtMarks.getText());
-
-    Student student = new Student(name, email, course, marks);
-    dao.add(student);
-
-    lblStatus.setText("Student added successfully");
-    lblStatus.setForeground(Color.GREEN);
-    refreshTable();
-
+    
+    // Validate inputs
+    if (name.isEmpty() || email.isEmpty()) {
+        lblStatus.setText("Name and Email cannot be empty!");
+        lblStatus.setForeground(Color.RED);
+        return;
+    }
+    
+    try {
+        int marks = Integer.parseInt(txtMarks.getText().trim());
+        
+        if (marks < 0 || marks > 100) {
+            lblStatus.setText("Marks must be between 0 and 100!");
+            lblStatus.setForeground(Color.RED);
+            return;
+        }
+        
+        Student student = new Student(name, email, course, marks);
+        dao.add(student);
+        
+        lblStatus.setText("Student added successfully!");
+        lblStatus.setForeground(Color.GREEN);
+        refreshTable();
+        
+        // Clear input fields
+        txtName.setText("");
+        txtEmail.setText("");
+        txtMarks.setText("");
+        cmbCourse.setSelectedIndex(0);
+        
+    } catch (NumberFormatException ex) {
+        lblStatus.setText("Please enter valid marks (numbers only)!");
+        lblStatus.setForeground(Color.RED);
+    }
+   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
+          // Sort By Name (A-Z)
+   List<Student> sorted = dao.getAll().stream()
+        .sorted((s1, s2) -> s1.getName().compareToIgnoreCase(s2.getName()))
+        .collect(Collectors.toList());
+    updateTable(sorted);
+    lblStatus.setText("Sorted by Name (A-Z)");
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 //   private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
+     // UPDATE Student functionality
     int selectedRow = table.getSelectedRow();
     if (selectedRow >= 0) {
-        int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
-        String name = txtName.getText();
-        String email = txtEmail.getText();
-        String course = cmbCourse.getSelectedItem().toString();
-        int marks = Integer.parseInt(txtMarks.getText());
+        try {
+            int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
+            String name = txtName.getText().trim();
+            String email = txtEmail.getText().trim();
+            String course = cmbCourse.getSelectedItem().toString();
+            
+            if (name.isEmpty() || email.isEmpty()) {
+                lblStatus.setText("Name and Email cannot be empty!");
+                lblStatus.setForeground(Color.RED);
+                return;
+            }
+            
+            int marks = Integer.parseInt(txtMarks.getText().trim());
+            
+            if (marks < 0 || marks > 100) {
+                lblStatus.setText("Marks must be between 0 and 100!");
+                lblStatus.setForeground(Color.RED);
+                return;
+            }
 
-        Student student = new Student(name, email, course, marks);
-        dao.update(student, id);
+            Student student = new Student(name, email, course, marks);
+            dao.update(student, id);
 
-        lblStatus.setText("Student updated successfully");
-        lblStatus.setForeground(Color.GREEN);
-        refreshTable();
-    
-}
+            lblStatus.setText("Student updated successfully!");
+            lblStatus.setForeground(Color.GREEN);
+            refreshTable();
+            
+            // Clear input fields
+            txtName.setText("");
+            txtEmail.setText("");
+            txtMarks.setText("");
+            
+        } catch (NumberFormatException ex) {
+            lblStatus.setText("Please enter valid marks (numbers only)!");
+            lblStatus.setForeground(Color.RED);
+        }
+    } else {
+        lblStatus.setText("Please select a student to update!");
+        lblStatus.setForeground(Color.RED);
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+ // DELETE Student functionality
     int selectedRow = table.getSelectedRow();
     if (selectedRow >= 0) {
         int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
-        dao.delete(id);
-
-        lblStatus.setText("Student deleted successfully");
-        lblStatus.setForeground(Color.GREEN);
-        refreshTable();
-    
-}
+        String name = table.getValueAt(selectedRow, 1).toString();
+        
+        // Confirm deletion
+        int confirm = JOptionPane.showConfirmDialog(this, 
+            "Are you sure you want to delete " + name + "?", 
+            "Confirm Delete", 
+            JOptionPane.YES_NO_OPTION);
+            
+        if (confirm == JOptionPane.YES_OPTION) {
+            dao.delete(id);
+            lblStatus.setText("Student deleted successfully!");
+            lblStatus.setForeground(Color.GREEN);
+            refreshTable();
+        }
+    } else {
+        lblStatus.setText("Please select a student to delete!");
+        lblStatus.setForeground(Color.RED);
+    }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
-    String keyword = txtName.getText();
+ // SEARCH Student functionality
+    String keyword = txtName.getText().trim();
+    
+    if (keyword.isEmpty()) {
+        lblStatus.setText("Please enter a name to search!");
+        lblStatus.setForeground(Color.RED);
+        return;
+    }
+    
     List<Student> results = dao.getAll().stream()
         .filter(s -> s.getName().toLowerCase().contains(keyword.toLowerCase()))
         .collect(Collectors.toList());
 
-    updateTable(results);
-    lblStatus.setText(results.size() + " student(s) found");
-    lblStatus.setForeground(Color.BLUE);
-
+    if (results.isEmpty()) {
+        lblStatus.setText("No students found with name: " + keyword);
+        lblStatus.setForeground(Color.RED);
+    } else {
+        updateTable(results);
+        lblStatus.setText(results.size() + " student(s) found");
+        lblStatus.setForeground(Color.BLUE);
+    }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       
-    updateTable(dao.getAll());
+      // SHOW ALL Students functionality
+    refreshTable();
     lblStatus.setText("All students displayed");
     lblStatus.setForeground(Color.BLACK);
-
+   
+   
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
@@ -652,7 +748,7 @@ public class MainPage extends javax.swing.JFrame {
     // 2. If 'Yes' is clicked, handle the navigation
     if (response == javax.swing.JOptionPane.YES_OPTION) {
         // Replace 'loginpage' with the exact name of your login class
-        new loginpage().setVisible(true);
+        new LoginForm().setVisible(true);
         
         // Close the current MainPage window
         this.dispose();
@@ -676,11 +772,11 @@ public class MainPage extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-     
-        java.awt.EventQueue.invokeLater(() -> new loginpage().setVisible(true));
+    public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainPage(UserRole.STUDENT).setVisible(true);
+        });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbCourse;
     private javax.swing.JButton jButton1;
@@ -731,12 +827,25 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
-    private void updateTable(List<Student> All) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void updateTable(List<Student> studentList) {
+    // Get the table model
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    
+    // Clear all existing rows from the table
+    model.setRowCount(0);
+    
+    // Loop through each student in the list
+    for (Student s : studentList) {
+        // Add a new row with student data
+        model.addRow(new Object[]{
+            s.getId(),           // Column 0: ID
+            s.getName(),         // Column 1: Name
+            s.getCourse(),       // Column 2: Course
+            s.getMarks()         // Column 3: Marks
+        });
     }
-
+}
     private void refreshTable() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    updateTable(dao.getAll());
+}
 }
