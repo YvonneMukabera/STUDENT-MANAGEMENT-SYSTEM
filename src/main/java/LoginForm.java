@@ -121,7 +121,7 @@ if (imgURL != null) {
         progressBar.setBackground(new java.awt.Color(255, 255, 255));
         progressBar.setForeground(new java.awt.Color(51, 255, 51));
         progressBar.setToolTipText("");
-        progressBar.setValue(20);
+        progressBar.setValue(5);
         progressBar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         progressBar.setStringPainted(true);
 

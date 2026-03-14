@@ -5,10 +5,10 @@ import java.sql.ResultSet;
 
 public class DatabaseConnection {
 
-    // MySQL database info — change port to 3306 if needed
-    private static final String URL = "jdbc:mysql://localhost:3307/student_management";
-    private static final String USER = "student";  // your MySQL username
-    private static final String PASSWORD = "user123";  // your MySQL password
+    // MySQL database info — adjust port and credentials if needed
+    private static final String URL = "jdbc:mysql://localhost:3306/student_management?serverTimezone=UTC&useSSL=false";
+    private static final String USER = "root";  // change to your MySQL username
+    private static final String PASSWORD = "";  // change to your MySQL password
 
     // Method to get database connection
     public static Connection getConnection() throws Exception {
@@ -32,9 +32,9 @@ public class DatabaseConnection {
             boolean loginSuccess = rs.next();
 
             if (loginSuccess) {
-                System.out.println("Login successful " + username);
+                System.out.println("Login successful: " + username);
             } else {
-                System.out.println("Login failed" + username);
+                System.out.println("Login failed: " + username);
             }
 
             return loginSuccess;
@@ -46,7 +46,7 @@ public class DatabaseConnection {
         }
     }
 
-    // Quick test main (optional)
+    // Quick test main
     public static void main(String[] args) {
         try {
             validateLogin("admin", "admin123"); // Test user from your DB
