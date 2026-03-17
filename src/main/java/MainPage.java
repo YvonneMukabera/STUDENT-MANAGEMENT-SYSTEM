@@ -76,7 +76,6 @@ public class MainPage extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -102,12 +101,16 @@ public class MainPage extends javax.swing.JFrame {
         jRadioButton3 = new javax.swing.JRadioButton();
         jSlider1 = new javax.swing.JSlider();
         jLabel9 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
         lblStatus = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -129,18 +132,19 @@ public class MainPage extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 153, 204));
+        setBackground(new java.awt.Color(230, 248, 254));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(243, 254, 254));
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(235, 254, 254));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 204), new java.awt.Color(0, 102, 255), new java.awt.Color(0, 0, 204), new java.awt.Color(0, 0, 204)));
 
-        jPanel3.setBackground(new java.awt.Color(0, 51, 255));
+        jPanel3.setBackground(new java.awt.Color(0, 51, 153));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Student Management System (SMS)");
 
         lblLogout.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -163,7 +167,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(213, 213, 213)
+                .addGap(222, 222, 222)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblLogout)
@@ -175,7 +179,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblLogout))
-                .addGap(16, 16, 16))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         jButton2.setBackground(new java.awt.Color(0, 0, 153));
@@ -203,14 +207,10 @@ public class MainPage extends javax.swing.JFrame {
         jButton5.setText("Show All");
         jButton5.addActionListener(this::jButton5ActionPerformed);
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 101, 39));
-        jLabel8.setText("Student Added Successfully ! 👍");
-
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 255), 1, true));
         jPanel4.setForeground(new java.awt.Color(204, 204, 255));
 
-        jButton6.setBackground(new java.awt.Color(204, 255, 204));
         jButton6.setText("All Students");
 
         jButton7.setText("Filtering & Sorting");
@@ -218,12 +218,27 @@ public class MainPage extends javax.swing.JFrame {
 
         jButton8.setText("Statistics");
 
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        table.setBackground(new java.awt.Color(242, 242, 242));
         table.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -242,6 +257,11 @@ public class MainPage extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        table.setGridColor(new java.awt.Color(204, 204, 204));
+        table.setRequestFocusEnabled(false);
+        table.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        table.setShowGrid(true);
+        table.setVerifyInputWhenFocusTarget(false);
         jScrollPane2.setViewportView(table);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -249,33 +269,33 @@ public class MainPage extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton8)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6))))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGap(0, 4, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jLabel2.setText("Name:");
@@ -362,6 +382,8 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(10, 10, 10))
         );
 
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
         jCheckBox1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jCheckBox1.setText("Math");
 
@@ -433,22 +455,9 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(40, 40, 40))
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 223, Short.MAX_VALUE)
-        );
-
         lblStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblStatus.setForeground(new java.awt.Color(0, 153, 51));
-        lblStatus.setText("Student Added Successfully ! 👍");
+        lblStatus.setText("Student Added Successfully ! ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -456,41 +465,32 @@ public class MainPage extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jButton5)))
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton5)))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                        .addGap(17, 17, 17)
+                        .addComponent(lblStatus)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -505,15 +505,12 @@ public class MainPage extends javax.swing.JFrame {
                                 .addComponent(jButton4)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(4, 4, 4)
-                .addComponent(lblStatus)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addComponent(lblStatus))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -528,26 +525,46 @@ public class MainPage extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
 
-        jMenuBar1.setBackground(new java.awt.Color(204, 255, 255));
+        jMenuBar1.setBackground(new java.awt.Color(241, 254, 254));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 51, 204), new java.awt.Color(0, 51, 204), new java.awt.Color(0, 51, 204), new java.awt.Color(0, 51, 153)));
         jMenuBar1.setOpaque(true);
 
         jMenu1.setText("File");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        jMenuItem1.setText("Exit");
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Students");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        jMenuItem2.setText("Add");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Update");
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem4.setText("Delete");
+        jMenu2.add(jMenuItem4);
+
         jMenuBar1.add(jMenu2);
 
         jMenu5.setText("Help");
         jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        jMenuItem5.setText("About");
+        jMenu5.add(jMenuItem5);
+
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
@@ -555,101 +572,120 @@ public class MainPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        cmbCourse.requestFocus();
-    }//GEN-LAST:event_txtEmailActionPerformed
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void cmbCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCourseActionPerformed
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbCourseActionPerformed
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Filtering & Sorting feature coming soon!");
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-           txtEmail.requestFocus();
-    }//GEN-LAST:event_txtNameActionPerformed
+        // Sort By Name (A-Z)
+        List<Student> sorted = dao.getAll().stream()
+        .sorted((s1, s2) -> s1.getName().compareToIgnoreCase(s2.getName()))
+        .collect(Collectors.toList());
+        updateTable(sorted);
+        lblStatus.setText("Sorted by Name (A-Z)");
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void txtMarksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarksActionPerformed
         // TODO add your handling code here:
         jButton1.doClick();
     }//GEN-LAST:event_txtMarksActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-   // ADD Student functionality
-    String name = txtName.getText().trim();
-    String email = txtEmail.getText().trim();
-    String course = cmbCourse.getSelectedItem().toString();
-    
-    // Validate inputs
-    if (name.isEmpty() || email.isEmpty()) {
-        lblStatus.setText("Name and Email cannot be empty!");
-        lblStatus.setForeground(Color.RED);
-        return;
-    }
-    
-    try {
-        int marks = Integer.parseInt(txtMarks.getText().trim());
-        
-        if (marks < 0 || marks > 100) {
-            lblStatus.setText("Marks must be between 0 and 100!");
+    private void cmbCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCourseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCourseActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+        cmbCourse.requestFocus();
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+        txtEmail.requestFocus();
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Filtering & Sorting feature coming soon!");
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // SHOW ALL Students functionality
+        refreshTable();
+        lblStatus.setText("All students displayed");
+        lblStatus.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // SEARCH Student functionality
+        String keyword = txtName.getText().trim();
+
+        if (keyword.isEmpty()) {
+            lblStatus.setText("Please enter a name to search!");
             lblStatus.setForeground(Color.RED);
             return;
         }
-        
-        Student student = new Student(name, email, course, marks);
-        dao.add(student);
-        
-        lblStatus.setText("Student added successfully!");
-        lblStatus.setForeground(Color.GREEN);
-        refreshTable();
-        
-        // Clear input fields
-        txtName.setText("");
-        txtEmail.setText("");
-        txtMarks.setText("");
-        cmbCourse.setSelectedIndex(0);
-        
-    } catch (NumberFormatException ex) {
-        lblStatus.setText("Please enter valid marks (numbers only)!");
-        lblStatus.setForeground(Color.RED);
-    }
-   
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-          // Sort By Name (A-Z)
-   List<Student> sorted = dao.getAll().stream()
-        .sorted((s1, s2) -> s1.getName().compareToIgnoreCase(s2.getName()))
+        List<Student> results = dao.getAll().stream()
+        .filter(s -> s.getName().toLowerCase().contains(keyword.toLowerCase()))
         .collect(Collectors.toList());
-    updateTable(sorted);
-    lblStatus.setText("Sorted by Name (A-Z)");
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//   private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
-     // UPDATE Student functionality
-    int selectedRow = table.getSelectedRow();
-    if (selectedRow >= 0) {
-        try {
+        if (results.isEmpty()) {
+            lblStatus.setText("No students found with name: " + keyword);
+            lblStatus.setForeground(Color.RED);
+        } else {
+            updateTable(results);
+            lblStatus.setText(results.size() + " student(s) found");
+            lblStatus.setForeground(Color.BLUE);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // DELETE Student functionality
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow >= 0) {
             int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
-            String name = txtName.getText().trim();
-            String email = txtEmail.getText().trim();
-            String course = cmbCourse.getSelectedItem().toString();
-            
-            if (name.isEmpty() || email.isEmpty()) {
-                lblStatus.setText("Name and Email cannot be empty!");
-                lblStatus.setForeground(Color.RED);
-                return;
+            String name = table.getValueAt(selectedRow, 1).toString();
+
+            // Confirm deletion
+            int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete " + name + "?",
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                dao.delete(id);
+                lblStatus.setText("Student deleted successfully!");
+                lblStatus.setForeground(Color.GREEN);
+                refreshTable();
             }
-            
+        } else {
+            lblStatus.setText("Please select a student to delete!");
+            lblStatus.setForeground(Color.RED);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // ADD Student functionality
+        String name = txtName.getText().trim();
+        String email = txtEmail.getText().trim();
+        String course = cmbCourse.getSelectedItem().toString();
+
+        // Validate inputs
+        if (name.isEmpty() || email.isEmpty()) {
+            lblStatus.setText("Name and Email cannot be empty!");
+            lblStatus.setForeground(Color.RED);
+            return;
+        }
+
+        try {
             int marks = Integer.parseInt(txtMarks.getText().trim());
-            
+
             if (marks < 0 || marks > 100) {
                 lblStatus.setText("Marks must be between 0 and 100!");
                 lblStatus.setForeground(Color.RED);
@@ -657,117 +693,100 @@ public class MainPage extends javax.swing.JFrame {
             }
 
             Student student = new Student(name, email, course, marks);
-            dao.update(student, id);
+            dao.add(student);
 
-            lblStatus.setText("Student updated successfully!");
+            lblStatus.setText("Student added successfully!");
             lblStatus.setForeground(Color.GREEN);
             refreshTable();
-            
+
             // Clear input fields
             txtName.setText("");
             txtEmail.setText("");
             txtMarks.setText("");
-            
+            cmbCourse.setSelectedIndex(0);
+
         } catch (NumberFormatException ex) {
             lblStatus.setText("Please enter valid marks (numbers only)!");
             lblStatus.setForeground(Color.RED);
         }
-    } else {
-        lblStatus.setText("Please select a student to update!");
-        lblStatus.setForeground(Color.RED);
-    }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //   private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
+            // UPDATE Student functionality
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow >= 0) {
+                try {
+                    int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
+                    String name = txtName.getText().trim();
+                    String email = txtEmail.getText().trim();
+                    String course = cmbCourse.getSelectedItem().toString();
+
+                    if (name.isEmpty() || email.isEmpty()) {
+                        lblStatus.setText("Name and Email cannot be empty!");
+                        lblStatus.setForeground(Color.RED);
+                        return;
+                    }
+
+                    int marks = Integer.parseInt(txtMarks.getText().trim());
+
+                    if (marks < 0 || marks > 100) {
+                        lblStatus.setText("Marks must be between 0 and 100!");
+                        lblStatus.setForeground(Color.RED);
+                        return;
+                    }
+
+                    Student student = new Student(name, email, course, marks);
+                    dao.update(student, id);
+
+                    lblStatus.setText("Student updated successfully!");
+                    lblStatus.setForeground(Color.GREEN);
+                    refreshTable();
+
+                    // Clear input fields
+                    txtName.setText("");
+                    txtEmail.setText("");
+                    txtMarks.setText("");
+
+                } catch (NumberFormatException ex) {
+                    lblStatus.setText("Please enter valid marks (numbers only)!");
+                    lblStatus.setForeground(Color.RED);
+                }
+            } else {
+                lblStatus.setText("Please select a student to update!");
+                lblStatus.setForeground(Color.RED);
+            }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
- // DELETE Student functionality
-    int selectedRow = table.getSelectedRow();
-    if (selectedRow >= 0) {
-        int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
-        String name = table.getValueAt(selectedRow, 1).toString();
-        
-        // Confirm deletion
-        int confirm = JOptionPane.showConfirmDialog(this, 
-            "Are you sure you want to delete " + name + "?", 
-            "Confirm Delete", 
-            JOptionPane.YES_NO_OPTION);
-            
-        if (confirm == JOptionPane.YES_OPTION) {
-            dao.delete(id);
-            lblStatus.setText("Student deleted successfully!");
-            lblStatus.setForeground(Color.GREEN);
-            refreshTable();
-        }
-    } else {
-        lblStatus.setText("Please select a student to delete!");
-        lblStatus.setForeground(Color.RED);
-    }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
- // SEARCH Student functionality
-    String keyword = txtName.getText().trim();
-    
-    if (keyword.isEmpty()) {
-        lblStatus.setText("Please enter a name to search!");
-        lblStatus.setForeground(Color.RED);
-        return;
-    }
-    
-    List<Student> results = dao.getAll().stream()
-        .filter(s -> s.getName().toLowerCase().contains(keyword.toLowerCase()))
-        .collect(Collectors.toList());
-
-    if (results.isEmpty()) {
-        lblStatus.setText("No students found with name: " + keyword);
-        lblStatus.setForeground(Color.RED);
-    } else {
-        updateTable(results);
-        lblStatus.setText(results.size() + " student(s) found");
-        lblStatus.setForeground(Color.BLUE);
-    }
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-      // SHOW ALL Students functionality
-    refreshTable();
-    lblStatus.setText("All students displayed");
-    lblStatus.setForeground(Color.BLACK);
-   
-   
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
-//        private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {                                        
-    // 1. Ask for confirmation before logging out
-    int response = javax.swing.JOptionPane.showConfirmDialog(this, 
-            "Are you sure you want to logout?", 
-            "Confirm Logout", 
-            javax.swing.JOptionPane.YES_NO_OPTION, 
-            javax.swing.JOptionPane.QUESTION_MESSAGE);
-
-    // 2. If 'Yes' is clicked, handle the navigation
-    if (response == javax.swing.JOptionPane.YES_OPTION) {
-        // Replace 'loginpage' with the exact name of your login class
-        new LoginForm().setVisible(true);
-        
-        // Close the current MainPage window
-        this.dispose();
-    }
-
-    }//GEN-LAST:event_lblLogoutMouseClicked
+    private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseExited
+        //       private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {
+            lblLogout.setForeground(java.awt.Color.WHITE); // Change back to your original color
+    }//GEN-LAST:event_lblLogoutMouseExited
 
     private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseEntered
-//       private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {                                        
-    lblLogout.setForeground(java.awt.Color.RED); // Change to red on hover
-    lblLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)); // Change cursor to hand
-
+        //       private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {
+            lblLogout.setForeground(java.awt.Color.RED); // Change to red on hover
+            lblLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)); // Change cursor to hand
     }//GEN-LAST:event_lblLogoutMouseEntered
 
-    private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseExited
-//       private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {                                       
-    lblLogout.setForeground(java.awt.Color.WHITE); // Change back to your original color
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
+        //        private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {
+            // 1. Ask for confirmation before logging out
+            int response = javax.swing.JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to logout?",
+                "Confirm Logout",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.QUESTION_MESSAGE);
 
-    }//GEN-LAST:event_lblLogoutMouseExited
+            // 2. If 'Yes' is clicked, handle the navigation
+            if (response == javax.swing.JOptionPane.YES_OPTION) {
+                // Replace 'loginpage' with the exact name of your login class
+                new LoginForm().setVisible(true);
+
+                // Close the current MainPage window
+                this.dispose();
+            }
+    }//GEN-LAST:event_lblLogoutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -796,7 +815,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -805,13 +823,17 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;

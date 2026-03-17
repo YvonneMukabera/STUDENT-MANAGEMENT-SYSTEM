@@ -48,7 +48,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student Management System - Login");
-        setBackground(new java.awt.Color(204, 204, 204));
+        setBackground(new java.awt.Color(255, 255, 255));
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 formFocusLost(evt);
@@ -122,7 +122,6 @@ public class LoginForm extends javax.swing.JFrame {
         progressBar.setBackground(new java.awt.Color(255, 255, 255));
         progressBar.setForeground(new java.awt.Color(51, 255, 51));
         progressBar.setToolTipText("");
-        progressBar.setValue(5);
         progressBar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         progressBar.setStringPainted(true);
 
