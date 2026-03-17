@@ -11,7 +11,7 @@ This project was developed collaboratively with shared responsibilities and clea
 
 Yvonne Mukabera (Database & Authentication designer and Developer): Designed and implemented the database layer using JDBC, developed the login interface and its functionality, and handled validation and backend logic for user authentication.
 
-Enock Iradukunda (Main System Designer and developer): Designed and implemented the main application interface, including student management features (Add, Update, Delete, Search) and overall system functionality.
+Enock Iradukunda (Main page Designer and developer): Designed and implemented the main application interface, including student management features (Add, Update, Delete, Search) and overall system functionality.
 
 Collaborative Work:contributed to system design decisions, project ideation, and user interface aspects such as layout structure and color theme selection.
 
