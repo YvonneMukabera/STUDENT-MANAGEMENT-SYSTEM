@@ -3,21 +3,33 @@ import java.awt.Color;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JOptionPane; // Add this if not already imported
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+// Add this if not already imported
 //import javax.swing.table.DefaultTableModel;
  
 
     
 public class MainPage extends javax.swing.JFrame {
-     private StudentDAO dao = new StudentDAO();
+    
+    private StudentDAO dao;  
     private UserRole role;
 
     
-     
-
     // Change this constructor!
     public MainPage(UserRole role) {
-         
+        // Test MySQL connection first
+    if (DatabaseConnection.testConnection()) {
+        System.out.println("Successfully connected to MySQL!");
+    } else {
+        System.out.println("Failed to connect to MySQL!");
+    }
+        // Initialize database first
+    
+    dao = new StudentDAO();    
     this.role = role;
     initComponents();
     applyPermissions();
@@ -212,11 +224,13 @@ public class MainPage extends javax.swing.JFrame {
         jPanel4.setForeground(new java.awt.Color(204, 204, 255));
 
         jButton6.setText("All Students");
+        jButton6.addActionListener(this::jButton6ActionPerformed);
 
         jButton7.setText("Filtering & Sorting");
         jButton7.addActionListener(this::jButton7ActionPerformed);
 
         jButton8.setText("Statistics");
+        jButton8.addActionListener(this::jButton8ActionPerformed);
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -315,7 +329,7 @@ public class MainPage extends javax.swing.JFrame {
         txtEmail.setText("someone@gmail.com");
         txtEmail.addActionListener(this::txtEmailActionPerformed);
 
-        cmbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Math IV", "Java", "C++", "Circuit Analysis", "Database" }));
         cmbCourse.addActionListener(this::cmbCourseActionPerformed);
 
         txtMarks.setText("88");
@@ -385,13 +399,15 @@ public class MainPage extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
         jCheckBox1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jCheckBox1.setText("Math");
+        jCheckBox1.setText("Math IV");
+        jCheckBox1.addActionListener(this::jCheckBox1ActionPerformed);
 
         jCheckBox2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jCheckBox2.setText("Java");
 
         jCheckBox3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jCheckBox3.setText("Biology");
+        jCheckBox3.setText("C++");
+        jCheckBox3.addActionListener(this::jCheckBox3ActionPerformed);
 
         jRadioButton1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jRadioButton1.setText("Sort By ID");
@@ -693,7 +709,98 @@ public class MainPage extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Filtering & Sorting feature coming soon!");
+       try {
+        // Get all students from database
+        List<Student> allStudents = dao.getAll();
+        
+        // Make a copy to work with
+        List<Student> filteredStudents = new ArrayList<>(allStudents);
+        
+        // ========== APPLY COURSE FILTERS FROM CHECKBOXES ==========
+        List<String> selectedCourses = new ArrayList<>();
+        if (jCheckBox1.isSelected()) selectedCourses.add("Math IV");
+        if (jCheckBox2.isSelected()) selectedCourses.add("Java");
+        if (jCheckBox3.isSelected()) selectedCourses.add("C++");
+        
+        // If any courses are selected, filter by those courses
+        if (!selectedCourses.isEmpty()) {
+            filteredStudents = filteredStudents.stream()
+                .filter(s -> selectedCourses.contains(s.getCourse()))
+                .collect(Collectors.toList());
+        }
+        
+        // ========== APPLY SLIDER FILTER ==========
+        // Assuming slider is for minimum marks (0-100)
+        int minMarks = jSlider1.getValue();
+        if (minMarks > 0) {
+            filteredStudents = filteredStudents.stream()
+                .filter(s -> s.getMarks() >= minMarks)
+                .collect(Collectors.toList());
+        }
+        
+        // ========== APPLY SORTING BASED ON RADIO BUTTONS ==========
+        String sortMessage = "";
+        
+        if (jRadioButton1.isSelected()) { // Sort By ID
+            filteredStudents.sort(Comparator.comparingInt(Student::getId));
+            sortMessage = "Sorted by ID";
+            
+        } else if (jRadioButton2.isSelected()) { // Sort By Name (A-Z)
+            filteredStudents.sort(Comparator.comparing(Student::getName, String.CASE_INSENSITIVE_ORDER));
+            sortMessage = "Sorted by Name (A-Z)";
+            
+        } else if (jRadioButton3.isSelected()) { // Sort By Mark (High-Low)
+            filteredStudents.sort((s1, s2) -> Integer.compare(s2.getMarks(), s1.getMarks()));
+            sortMessage = "Sorted by Marks (High to Low)";
+        }
+        
+        // ========== UPDATE THE TABLE ==========
+        if (filteredStudents.isEmpty()) {
+            if (!selectedCourses.isEmpty()) {
+                lblStatus.setText("No students found in selected courses");
+            } else if (minMarks > 0) {
+                lblStatus.setText("No students with marks ≥ " + minMarks);
+            } else {
+                lblStatus.setText("No students available");
+            }
+            lblStatus.setForeground(Color.RED);
+            
+            // Update table with empty list (clears the table)
+            updateTable(filteredStudents);
+            
+        } else {
+            // Update the table with filtered and sorted results
+            updateTable(filteredStudents);
+            
+            // Set status message
+            String message = "Displaying " + filteredStudents.size() + " student(s)";
+            if (!sortMessage.isEmpty()) {
+                message = sortMessage + " - " + filteredStudents.size() + " student(s)";
+            }
+            if (!selectedCourses.isEmpty()) {
+                message = "Filtered by course: " + String.join(", ", selectedCourses) + 
+                         " - " + filteredStudents.size() + " student(s)";
+            }
+            if (minMarks > 0) {
+                message = "Marks ≥ " + minMarks + " - " + filteredStudents.size() + " student(s)";
+            }
+            
+            lblStatus.setText(message);
+            lblStatus.setForeground(new Color(0, 153, 51)); // Green color
+        }
+        
+        // Clear radio button selection message if no filter was applied
+        if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected() && 
+            !jRadioButton3.isSelected() && selectedCourses.isEmpty() && minMarks == 0) {
+            lblStatus.setText("Please select filter or sort options");
+            lblStatus.setForeground(Color.BLUE);
+        }
+        
+    } catch (Exception e) {
+        lblStatus.setText("Error applying filters: " + e.getMessage());
+        lblStatus.setForeground(Color.RED);
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -919,6 +1026,111 @@ public class MainPage extends javax.swing.JFrame {
          About.showAbout();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        refreshTable();
+    
+    // Update status
+    lblStatus.setText("All students displayed");
+    lblStatus.setForeground(Color.BLACK);
+    
+    // Reset all filter and sort selections
+    jCheckBox1.setSelected(false);
+    jCheckBox2.setSelected(false);
+    jCheckBox3.setSelected(false);
+    jRadioButton1.setSelected(false);
+    jRadioButton2.setSelected(false);
+    jRadioButton3.setSelected(false);
+    jSlider1.setValue(0);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+         try {
+        // Get all students
+        List<Student> allStudents = dao.getAll();
+        
+        if (allStudents.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                "No student data available for statistics.",
+                "Statistics",
+                JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        // Calculate statistics
+        int totalStudents = allStudents.size();
+        
+        // Marks statistics
+        double totalMarks = 0;
+        int highestMarks = Integer.MIN_VALUE;
+        int lowestMarks = Integer.MAX_VALUE;
+        String highestScorer = "";
+        String lowestScorer = "";
+        
+        // Course distribution
+        java.util.Map<String, Integer> courseCount = new java.util.HashMap<>();
+        
+        for (Student s : allStudents) {
+            int marks = s.getMarks();
+            totalMarks += marks;
+            
+            if (marks > highestMarks) {
+                highestMarks = marks;
+                highestScorer = s.getName();
+            }
+            
+            if (marks < lowestMarks) {
+                lowestMarks = marks;
+                lowestScorer = s.getName();
+            }
+            
+            // Count courses
+            String course = s.getCourse();
+            courseCount.put(course, courseCount.getOrDefault(course, 0) + 1);
+        }
+        
+        double averageMarks = totalMarks / totalStudents;
+        
+        // Build simple statistics message
+        StringBuilder stats = new StringBuilder();
+        stats.append("STUDENT STATISTICS\n");
+        stats.append("==================\n\n");
+        stats.append("Total Students: ").append(totalStudents).append("\n");
+        stats.append(String.format("Average Marks: %.2f\n", averageMarks));
+        stats.append("Highest Marks: ").append(highestMarks).append(" (").append(highestScorer).append(")\n");
+        stats.append("Lowest Marks: ").append(lowestMarks).append(" (").append(lowestScorer).append(")\n\n");
+        
+        stats.append("Course Distribution:\n");
+        for (java.util.Map.Entry<String, Integer> entry : courseCount.entrySet()) {
+            stats.append("• ").append(entry.getKey()).append(": ").append(entry.getValue());
+            stats.append(" (").append(String.format("%.1f", (entry.getValue() * 100.0 / totalStudents))).append("%)\n");
+        }
+        
+        JOptionPane.showMessageDialog(this,
+            stats.toString(),
+            "Student Statistics",
+            JOptionPane.INFORMATION_MESSAGE);
+        
+        lblStatus.setText("Statistics displayed");
+        lblStatus.setForeground(new Color(0, 102, 204));
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this,
+            "Error: " + e.getMessage(),
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -980,16 +1192,11 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
-    private void updateTable(List<Student> studentList) {
-    // Get the table model
+   private void updateTable(List<Student> studentList) {
     DefaultTableModel model = (DefaultTableModel) table.getModel();
-    
-    // Clear all existing rows from the table
     model.setRowCount(0);
     
-    // Loop through each student in the list
     for (Student s : studentList) {
-        // Add a new row with student data
         model.addRow(new Object[]{
             s.getId(),           // Column 0: ID
             s.getName(),         // Column 1: Name
@@ -997,8 +1204,32 @@ public class MainPage extends javax.swing.JFrame {
             s.getMarks()         // Column 3: Marks
         });
     }
+
 }
-    private void refreshTable() {
-    updateTable(dao.getAll());
+ private void refreshTable() {
+    if (dao == null) {
+        System.err.println("DAO is null! Reinitializing...");
+        dao = new StudentDAO();
+    }
+    
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    model.setRowCount(0);
+    
+    List<Student> students = dao.getAll();
+    if (students == null) {
+        System.err.println("getAll() returned null!");
+        return;
+    }
+    
+    for (Student s : students) {
+        model.addRow(new Object[]{
+            s.getId(),
+            s.getName(),
+            s.getCourse(),
+            s.getMarks()
+        });
+    }
 }
+
+
 }
