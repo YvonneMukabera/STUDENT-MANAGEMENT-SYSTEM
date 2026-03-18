@@ -539,6 +539,7 @@ public class MainPage extends javax.swing.JFrame {
         jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jMenuItem1.setText("Exit");
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -555,6 +556,7 @@ public class MainPage extends javax.swing.JFrame {
         jMenu2.add(jMenuItem3);
 
         jMenuItem4.setText("Delete");
+        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
         jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
@@ -563,6 +565,7 @@ public class MainPage extends javax.swing.JFrame {
         jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jMenuItem5.setText("About");
+        jMenuItem5.addActionListener(this::jMenuItem5ActionPerformed);
         jMenu5.add(jMenuItem5);
 
         jMenuBar1.add(jMenu5);
@@ -574,10 +577,89 @@ public class MainPage extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
+        // ADD Student functionality
+    String name = txtName.getText().trim();
+    String email = txtEmail.getText().trim();
+    String course = cmbCourse.getSelectedItem().toString();
+
+    // Validate inputs
+    if (name.isEmpty() || email.isEmpty()) {
+        lblStatus.setText("Name and Email cannot be empty!");
+        lblStatus.setForeground(Color.RED);
+        return;
+    }
+
+    try {
+        int marks = Integer.parseInt(txtMarks.getText().trim());
+
+        if (marks < 0 || marks > 100) {
+            lblStatus.setText("Marks must be between 0 and 100!");
+            lblStatus.setForeground(Color.RED);
+            return;
+        }
+
+        Student student = new Student(name, email, course, marks);
+        dao.add(student);
+
+        lblStatus.setText("Student added successfully!");
+        lblStatus.setForeground(Color.GREEN);
+        refreshTable();
+
+        // Clear input fields
+        txtName.setText("");
+        txtEmail.setText("");
+        txtMarks.setText("");
+        cmbCourse.setSelectedIndex(0);
+
+    } catch (NumberFormatException ex) {
+        lblStatus.setText("Please enter valid marks (numbers only)!");
+        lblStatus.setForeground(Color.RED);
+    }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
+        int selectedRow = table.getSelectedRow();
+    if (selectedRow >= 0) {
+        try {
+            int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
+            String name = txtName.getText().trim();
+            String email = txtEmail.getText().trim();
+            String course = cmbCourse.getSelectedItem().toString();
+
+            if (name.isEmpty() || email.isEmpty()) {
+                lblStatus.setText("Name and Email cannot be empty!");
+                lblStatus.setForeground(Color.RED);
+                return;
+            }
+
+            int marks = Integer.parseInt(txtMarks.getText().trim());
+
+            if (marks < 0 || marks > 100) {
+                lblStatus.setText("Marks must be between 0 and 100!");
+                lblStatus.setForeground(Color.RED);
+                return;
+            }
+
+            Student student = new Student(name, email, course, marks);
+            dao.update(student, id);
+
+            lblStatus.setText("Student updated successfully!");
+            lblStatus.setForeground(Color.GREEN);
+            refreshTable();
+
+            txtName.setText("");
+            txtEmail.setText("");
+            txtMarks.setText("");
+
+        } catch (NumberFormatException ex) {
+            lblStatus.setText("Please enter valid marks (numbers only)!");
+            lblStatus.setForeground(Color.RED);
+        }
+    } else {
+        lblStatus.setText("Please select a student to update!");
+        lblStatus.setForeground(Color.RED);
+    }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
@@ -787,6 +869,55 @@ public class MainPage extends javax.swing.JFrame {
                 this.dispose();
             }
     }//GEN-LAST:event_lblLogoutMouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        // 1. Ask for confirmation before logging out
+    int response = javax.swing.JOptionPane.showConfirmDialog(this,
+        "Are you sure you want to logout?",
+        "Confirm Logout",
+        javax.swing.JOptionPane.YES_NO_OPTION,
+        javax.swing.JOptionPane.QUESTION_MESSAGE);
+
+    // 2. If 'Yes' is clicked, handle the navigation
+    if (response == javax.swing.JOptionPane.YES_OPTION) {
+        // Open Login Form
+        new LoginForm().setVisible(true);
+
+        // Close current window
+        this.dispose();
+    }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = table.getSelectedRow();
+    if (selectedRow >= 0) {
+        int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
+        String name = table.getValueAt(selectedRow, 1).toString();
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Are you sure you want to delete " + name + "?",
+            "Confirm Delete",
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            dao.delete(id);
+            lblStatus.setText("Student deleted successfully!");
+            lblStatus.setForeground(Color.GREEN);
+            refreshTable();
+        }
+    } else {
+        lblStatus.setText("Please select a student to delete!");
+        lblStatus.setForeground(Color.RED);
+    }
+
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+         About.showAbout();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
