@@ -405,6 +405,7 @@ public class MainPage extends javax.swing.JFrame {
         buttonGroup1.add(jCheckBox2);
         jCheckBox2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jCheckBox2.setText("Java");
+        jCheckBox2.addActionListener(this::jCheckBox2ActionPerformed);
 
         buttonGroup1.add(jCheckBox3);
         jCheckBox3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
@@ -1129,12 +1130,22 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        // TODO add your handling code here:
+    if(jCheckBox3.isSelected()){
+    cmbCourse.setSelectedItem("C++");
+    }        // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
+    if(jCheckBox1.isSelected()){
+    cmbCourse.setSelectedItem("Math IV");
+    }        // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    if(jCheckBox2.isSelected()){
+    cmbCourse.setSelectedItem("Java");
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     /**
      * @param args the command line arguments
