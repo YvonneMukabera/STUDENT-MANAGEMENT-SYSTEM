@@ -78,6 +78,8 @@ public class MainPage extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -395,24 +397,30 @@ public class MainPage extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
+        buttonGroup1.add(jCheckBox1);
         jCheckBox1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jCheckBox1.setText("Math IV");
         jCheckBox1.addActionListener(this::jCheckBox1ActionPerformed);
 
+        buttonGroup1.add(jCheckBox2);
         jCheckBox2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jCheckBox2.setText("Java");
 
+        buttonGroup1.add(jCheckBox3);
         jCheckBox3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jCheckBox3.setText("C++");
         jCheckBox3.addActionListener(this::jCheckBox3ActionPerformed);
 
+        buttonGroup2.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jRadioButton1.setText("Sort By ID");
 
+        buttonGroup2.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jRadioButton2.setText("Sort By Name (A-Z)");
         jRadioButton2.addActionListener(this::jRadioButton2ActionPerformed);
 
+        buttonGroup2.add(jRadioButton3);
         jRadioButton3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jRadioButton3.setText("Sort By Mark (High-Low)");
 
@@ -1137,6 +1145,8 @@ public class MainPage extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cmbCourse;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
