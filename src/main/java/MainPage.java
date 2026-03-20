@@ -66,6 +66,8 @@ public class MainPage extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -106,8 +108,13 @@ public class MainPage extends javax.swing.JFrame {
         lblStatus = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -295,7 +302,7 @@ public class MainPage extends javax.swing.JFrame {
         txtEmail.setText("someone@gmail.com");
         txtEmail.addActionListener(this::txtEmailActionPerformed);
 
-        cmbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "C++", "Java", "Chemistry", "Database", "Mathematics", "Biology" }));
         cmbCourse.addActionListener(this::cmbCourseActionPerformed);
 
         txtMarks.setText("88");
@@ -362,22 +369,31 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(10, 10, 10))
         );
 
+        buttonGroup1.add(jCheckBox1);
         jCheckBox1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jCheckBox1.setText("Math");
+        jCheckBox1.addActionListener(this::jCheckBox1ActionPerformed);
 
+        buttonGroup1.add(jCheckBox2);
         jCheckBox2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jCheckBox2.setText("Java");
+        jCheckBox2.addActionListener(this::jCheckBox2ActionPerformed);
 
+        buttonGroup1.add(jCheckBox3);
         jCheckBox3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jCheckBox3.setText("Biology");
+        jCheckBox3.addActionListener(this::jCheckBox3ActionPerformed);
 
+        buttonGroup2.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jRadioButton1.setText("Sort By ID");
 
+        buttonGroup2.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jRadioButton2.setText("Sort By Name (A-Z)");
         jRadioButton2.addActionListener(this::jRadioButton2ActionPerformed);
 
+        buttonGroup2.add(jRadioButton3);
         jRadioButton3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jRadioButton3.setText("Sort By Mark (High-Low)");
 
@@ -540,14 +556,37 @@ public class MainPage extends javax.swing.JFrame {
 
         jMenu1.setText("File");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        jMenuItem1.setText("Exit");
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Students");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        jMenuItem2.setText("Add");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Update");
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem4.setText("Delete");
+        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
+        jMenu2.add(jMenuItem4);
+
         jMenuBar1.add(jMenu2);
 
         jMenu5.setText("Help");
         jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        jMenuItem5.setText("About");
+        jMenuItem5.addActionListener(this::jMenuItem5ActionPerformed);
+        jMenu5.add(jMenuItem5);
+
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
@@ -561,12 +600,12 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void cmbCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCourseActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
     }//GEN-LAST:event_cmbCourseActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Filtering & Sorting feature coming soon!");
+        JOptionPane.showMessageDialog(this, "Do You Want Filtering & Sorting feature!");
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -769,6 +808,44 @@ public class MainPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lblLogoutMouseExited
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    jButton1ActionPerformed(evt);        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    System.exit(0);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    javax.swing.JOptionPane.showMessageDialog(this,"Student Management System\nCreated By Enock & Yvona");
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    jButton2ActionPerformed(evt);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    jButton3ActionPerformed(evt);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+       if (jCheckBox1.isSelected()){
+      cmbCourse.setSelectedItem("Mathematics");   
+       }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    if(jCheckBox2.isSelected()){
+    cmbCourse.setSelectedItem("Java");
+    }
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+    if(jCheckBox3.isSelected()){
+    cmbCourse.setSelectedItem("Biology");
+    } 
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -778,6 +855,8 @@ public class MainPage extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cmbCourse;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -805,6 +884,11 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

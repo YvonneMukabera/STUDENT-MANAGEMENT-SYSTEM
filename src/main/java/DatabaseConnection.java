@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 
 public class DatabaseConnection {
 
-    private static final String URL = "jdbc:mysql://localhost:3307/student_management?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    private static final String URL = "jdbc:mysql://localhost:3306/student_management?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
