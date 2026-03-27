@@ -1,5 +1,5 @@
 📘 Student Management System (Java Project)
-📖 Project Description
+
 
 The Student Management System (SMS) is a Java-based application developed to efficiently manage student records through a graphical user interface. The system provides a secure login mechanism and a main dashboard where users can perform essential operations such as adding, updating, deleting, and searching student information.
 
@@ -9,15 +9,18 @@ The project integrates a relational database using JDBC, ensuring persistent sto
 
 This project was developed collaboratively with shared responsibilities and clear role distribution:
 
-Yvonne Mukabera (Database & Authentication designer and Developer): Designed and implemented the database layer using JDBC, developed the login interface and its functionality, and handled validation and backend logic for user authentication.
+224005559 (Database & Authentication designer and Developer): Designed and implemented the database layer using JDBC, developed the login interface and its functionality, and handled validation and backend logic for user authentication.
 
-Enock Iradukunda (Main page Designer and developer): Designed and implemented the main application interface, including student management features (Add, Update, Delete, Search) and overall system functionality.
+224004620 (Main page Designer and developer): Designed and implemented the main application interface, including student management features (Add, Update, Delete, Search) and overall system functionality.
 
 Collaborative Work:contributed to system design decisions, project ideation, and user interface aspects such as layout structure and color theme selection.
 
 ⚙️ Functionality
 
 🔐 User Authentication
+🔐CREDENTIALS FOR TESTING
+     >useName: admin    password: admin123
+     >userName:teacher  password: teacher123
 
 Login interface with username and password
 
@@ -46,3 +49,8 @@ Disables buttons until valid input is provided
 Converts names to proper format (Title Case)
 
 Supports case-insensitive search and string operations
+
+
+🔐CREDENTIALS FOR TESTING
+     >useName: admin    password: admin123
+     >userName:teacher  password: teacher123
