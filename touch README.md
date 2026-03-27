@@ -18,8 +18,11 @@ Collaborative Work:contributed to system design decisions, project ideation, and
 ⚙️ Functionality
 
 🔐 User Authentication
+
 🔐CREDENTIALS FOR TESTING
+
      >useName: admin    password: admin123
+     
      >userName:teacher  password: teacher123
 
 Login interface with username and password
@@ -52,5 +55,7 @@ Supports case-insensitive search and string operations
 
 
 🔐CREDENTIALS FOR TESTING
+
      >useName: admin    password: admin123
+     
      >userName:teacher  password: teacher123
