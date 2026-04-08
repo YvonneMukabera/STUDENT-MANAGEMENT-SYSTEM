@@ -1,3 +1,5 @@
+package com.mycompany.studentmanagementsystem;
+// rest of code
 public class Student {
     private int id;
     private String name;
