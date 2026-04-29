@@ -1,4 +1,5 @@
-
+package com.mycompany.studentmanagementsystem;
+// rest of code
 import java.awt.Color;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,8 +7,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+//import java.util.prefs.Preferences;
+//import java.util.HashMap;
+//import java.util.Map;
 // Add this if not already imported
 //import javax.swing.table.DefaultTableModel;
  
@@ -27,18 +29,19 @@ public class MainPage extends javax.swing.JFrame {
     } else {
         System.out.println("Failed to connect to MySQL!");
     }
-        // Initialize database first
+        // Initialize database 
     
     dao = new StudentDAO();    
     this.role = role;
     initComponents();
+    //checkSession();
     applyPermissions();
     refreshTable();
     this.setLocationRelativeTo(null);
 
     }
     
-    // Default constructor (if needed)
+    // Default constructor 
     public MainPage() {
         this.role = UserRole.ADMIN; // Default role
         initComponents();
@@ -49,27 +52,24 @@ public class MainPage extends javax.swing.JFrame {
     private void applyPermissions() {
    lblStatus.setText(
     switch (role) {
-        case STUDENT -> {
-            jButton1.setEnabled(false); // Add
-            jButton2.setEnabled(false); // Update
-            jButton3.setEnabled(false); // Delete
-            yield "Role: Student (View Only)";
-        }
         case TEACHER -> {
             jButton3.setEnabled(false); // Delete
-            yield "Role: Teacher";
+            yield "Teacher's page";
         }
-        case ADMIN -> "Role: Admin";
+        case ADMIN -> "Admin's page";
     }
-);
+      );
    
     } 
-    
-//    public  MainPage() {
-//        initComponents();
-//    }
-//
-//    @SuppressWarnings("unchecked")
+ 
+    /*private void checkSession() {
+    java.util.prefs.Preferences prefs = java.util.prefs.Preferences.userRoot();
+    String sessionActive = prefs.get("logged_in_session", "false");
+    // This method is just for verification
+      if (!"true".equals(sessionActive)) {
+        System.out.println("No active session found");
+      }
+    }*/
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -722,7 +722,7 @@ public class MainPage extends javax.swing.JFrame {
         // Make a copy to work with
         List<Student> filteredStudents = new ArrayList<>(allStudents);
         
-        // ========== APPLY COURSE FILTERS FROM CHECKBOXES ==========
+        // APPLY COURSE FILTERS FROM CHECKBOXES 
         List<String> selectedCourses = new ArrayList<>();
         if (jCheckBox1.isSelected()) selectedCourses.add("Math IV");
         if (jCheckBox2.isSelected()) selectedCourses.add("Java");
@@ -735,8 +735,7 @@ public class MainPage extends javax.swing.JFrame {
                 .collect(Collectors.toList());
         }
         
-        // ========== APPLY SLIDER FILTER ==========
-        // Assuming slider is for minimum marks (0-100)
+        //  APPLY SLIDER FILTER 
         int minMarks = jSlider1.getValue();
         if (minMarks > 0) {
             filteredStudents = filteredStudents.stream()
@@ -744,7 +743,7 @@ public class MainPage extends javax.swing.JFrame {
                 .collect(Collectors.toList());
         }
         
-        // ========== APPLY SORTING BASED ON RADIO BUTTONS ==========
+        //  APPLY SORTING BASED ON RADIO BUTTONS 
         String sortMessage = "";
         
         if (jRadioButton1.isSelected()) { // Sort By ID
@@ -760,7 +759,7 @@ public class MainPage extends javax.swing.JFrame {
             sortMessage = "Sorted by Marks (High to Low)";
         }
         
-        // ========== UPDATE THE TABLE ==========
+        // UPDATE THE TABLE 
         if (filteredStudents.isEmpty()) {
             if (!selectedCourses.isEmpty()) {
                 lblStatus.setText("No students found in selected courses");
@@ -965,39 +964,37 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseEntered
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
-        //        private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {
+        
             // 1. Ask for confirmation before logging out
-            int response = javax.swing.JOptionPane.showConfirmDialog(this,
-                "Are you sure you want to logout?",
-                "Confirm Logout",
-                javax.swing.JOptionPane.YES_NO_OPTION,
-                javax.swing.JOptionPane.QUESTION_MESSAGE);
-
-            // 2. If 'Yes' is clicked, handle the navigation
-            if (response == javax.swing.JOptionPane.YES_OPTION) {
-                // Replace 'loginpage' with the exact name of your login class
-                new LoginForm().setVisible(true);
-
-                // Close the current MainPage window
-                this.dispose();
-            }
+    int response = javax.swing.JOptionPane.showConfirmDialog(this,
+        "Are you sure you want to logout?",
+        "Confirm logout",
+        javax.swing.JOptionPane.YES_NO_OPTION);
+    
+    if (response == javax.swing.JOptionPane.YES_OPTION) {
+        // Clear session
+        java.util.prefs.Preferences prefs = java.util.prefs.Preferences.userRoot();
+        prefs.remove("logged_in_session");
+        prefs.remove("session_user");
+        prefs.remove("session_role");
+        
+        new LoginForm().setVisible(true);
+        this.dispose();
+    }
     }//GEN-LAST:event_lblLogoutMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        // 1. Ask for confirmation before logging out
+
+    // 1. Ask for confirmation before closing
     int response = javax.swing.JOptionPane.showConfirmDialog(this,
-        "Are you sure you want to logout?",
-        "Confirm Logout",
+        "Are you sure you want to close?",
+        "Confirm close",
         javax.swing.JOptionPane.YES_NO_OPTION,
         javax.swing.JOptionPane.QUESTION_MESSAGE);
 
-    // 2. If 'Yes' is clicked, handle the navigation
+    // 2. If 'Yes' is clicked, just close - session stays saved
     if (response == javax.swing.JOptionPane.YES_OPTION) {
-        // Open Login Form
-        new LoginForm().setVisible(true);
-
-        // Close current window
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         this.dispose();
     }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -1152,7 +1149,7 @@ public class MainPage extends javax.swing.JFrame {
      */
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(() -> {
-            new MainPage(UserRole.STUDENT).setVisible(true);
+            new MainPage(UserRole.TEACHER).setVisible(true);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

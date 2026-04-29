@@ -1,3 +1,5 @@
+package com.mycompany.studentmanagementsystem;
+// rest of code
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

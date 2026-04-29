@@ -1,3 +1,5 @@
+package com.mycompany.studentmanagementsystem;
+// rest of code
 import javax.swing.*;
 import java.awt.*;
 

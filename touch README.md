@@ -1,48 +1,77 @@
-📘 Student Management System (Java Project)
-📖 Project Description
+# 📘 Student Management System (Java Project)
 
-The Student Management System (SMS) is a Java-based application developed to efficiently manage student records through a graphical user interface. The system provides a secure login mechanism and a main dashboard where users can perform essential operations such as adding, updating, deleting, and searching student information.
+## 🔐 Test Credentials
 
-The project integrates a relational database using JDBC, ensuring persistent storage and secure data handling. It also applies object-oriented programming principles and incorporates input validation and string processing techniques to enhance data accuracy and usability. The system is designed to be simple, interactive, and user-friendly for effective academic record management.
+* userRole: admin   password: admin123
+* userRole: teacher password: teacher123
 
-👥 Participants
+---
 
-This project was developed collaboratively with shared responsibilities and clear role distribution:
+## 📖 Project Description
 
-Yvonne Mukabera (Database & Authentication designer and Developer): Designed and implemented the database layer using JDBC, developed the login interface and its functionality, and handled validation and backend logic for user authentication.
+The Student Management System (SMS) is a Java-based application designed to manage student records through a simple and interactive graphical interface.
 
-Enock Iradukunda (Main page Designer and developer): Designed and implemented the main application interface, including student management features (Add, Update, Delete, Search) and overall system functionality.
+It allows users to easily **add, update, search, and view student information** from a centralized dashboard. The system is structured using object-oriented principles and connects to a database using JDBC for reliable data storage.
 
-Collaborative Work:contributed to system design decisions, project ideation, and user interface aspects such as layout structure and color theme selection.
+The application is built to be **easy to use, organized, and efficient** for handling academic records.
 
-⚙️ Functionality
+---
 
-🔐 User Authentication
+## 👥 Participants
 
-Login interface with username and password
+* **Yvonne Mukabera** *(Database & Authentication Developer)*
 
-Reset option and login feedback messages
+  * Designed and implemented the database using JDBC
+  * Developed login system and handled backend logic
 
-🖥️ Student Management
+* **Enock Iradukunda** *(Main Interface Developer)*
 
-Add, Update, Delete, and Search student records
+  * Designed and built the main dashboard
+  * Implemented student operations (Add, Update, Delete, Search)
 
-Display all records in a table format
+* **Collaborative Work**
 
-🗄️ Database Integration
+  * Contributed to system design and project planning
+  * Worked on interface layout and appearance
 
-Stores student data using MySQL/SQLite
+---
 
-Uses JDBC with PreparedStatement for secure operations
+## ⚙️ Functionality
 
-🔄 Input Validation
+### 🖥️ Student Management
 
-Ensures fields are correctly filled before submission
+* Add, Update, Delete, and Search student records
+* Display all records in a table format
 
-Disables buttons until valid input is provided
+### 👤 User Roles
 
-🔤 String Processing
+* **Admin**
 
-Converts names to proper format (Title Case)
+  * Can perform all operations (Add, Update, Delete, Search)
 
-Supports case-insensitive search and string operations
+* **Teacher**
+
+  * Can Add, Update, and Search
+  * Cannot Delete records
+
+### 🗄️ Database Integration
+
+* Stores student data using MySQL/SQLite
+* Uses JDBC for database interaction
+
+### 🔄 Input Handling
+
+* Ensures required fields are filled correctly
+* Prevents incomplete data submission
+
+### 🔤 Data Formatting
+
+* Formats names properly (Title Case)
+* Supports flexible searching
+
+---
+
+## 🔐 Test Credentials
+
+* userRole: admin   password: admin123
+* userRole: teacher password: teacher123

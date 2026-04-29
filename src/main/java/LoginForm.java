@@ -1,7 +1,9 @@
-
+package com.mycompany.studentmanagementsystem;
+// rest of code
 import javax.swing.*;
 import java.awt.event.*;
-import java.sql.*;
+//import java.sql.*;
+import java.awt.event.KeyAdapter;
 import java.util.prefs.Preferences;  
 public class LoginForm extends javax.swing.JFrame {
 
@@ -9,7 +11,7 @@ public class LoginForm extends javax.swing.JFrame {
      * Creates new form LoginForm
      */
   public LoginForm() {
-         initComponents();
+        initComponents();
         setupLoginForm();
         // Load logo safely
         java.net.URL imgURL = getClass().getResource("/image/logo.png");
@@ -71,6 +73,11 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel3.setText("Password:");
 
         chkRememberMe.setText("Remember Me");
+        chkRememberMe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRememberMeActionPerformed(evt);
+            }
+        });
 
         txtPassword.setText("jPasswordField1");
 
@@ -228,7 +235,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-// ===== ADD ALL THESE METHODS STARTING HERE =====
+
 
 private void setupLoginForm() {
     // Hide progress bar initially
@@ -238,6 +245,12 @@ private void setupLoginForm() {
         txtPassword.addActionListener(evt -> btnLogin.doClick());
         lblMessage.setText("Please login to continue");
         lblMessage.setForeground(java.awt.Color.BLUE);
+    txtUsername.addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyReleased(KeyEvent e) {
+        checkRememberedUser();
+    }
+});
 }
 
 // Method to convert string to Title Case (lab requirement)
@@ -278,11 +291,24 @@ private void loadRememberMe() {
             txtUsername.setText(savedUsername);
             chkRememberMe.setSelected(true);
         }
+          
+}
+private void checkRememberedUser() {
+    Preferences prefs = Preferences.userRoot();
+    String savedUsername = prefs.get("remembered_username", "");
+    
+    String currentInput = txtUsername.getText().trim();
+    
+    if (!savedUsername.isEmpty() && currentInput.equals(savedUsername)) {
+        chkRememberMe.setSelected(true);
+        lblMessage.setText("Welcome back! Please enter your password.");
+        lblMessage.setForeground(java.awt.Color.BLUE);
+    } else {
+        chkRememberMe.setSelected(false);
+    }
 }
 
 private void openMainPage(UserRole role) {
-    // This will launch your main management form
-    // For now, let's just show a message
     MainPage mainPage = new MainPage(role);
         mainPage.setVisible(true);
 }
@@ -310,10 +336,8 @@ private void openMainPage(UserRole role) {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
-     // TODO add your handling code here:
     // Clear any previous message
     lblMessage.setText("");
-    
     // Get username and password from the fields
     String username = txtUsername.getText().trim();
     String password = new String(txtPassword.getPassword()).trim();
@@ -367,7 +391,11 @@ private void openMainPage(UserRole role) {
 
                         String welcomeName = makeTitleCase(username);
                         JOptionPane.showMessageDialog(null, "Welcome " + welcomeName + "!");
-
+                        // SAVE SESSION 
+                        Preferences prefs = Preferences.userRoot();
+                        prefs.put("logged_in_session", "true");
+                        prefs.put("session_user", username);
+                        prefs.put("session_role", role.toString());
                         if (chkRememberMe.isSelected()) {
                             saveRememberMe(username);
                         }
@@ -393,6 +421,18 @@ private void openMainPage(UserRole role) {
         worker.execute(); // Start the background task
 
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void chkRememberMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRememberMeActionPerformed
+        // TODO add your handling code here:
+        if (chkRememberMe.isSelected()) {
+    saveRememberMe(txtUsername.getText().trim());
+} else {
+    Preferences prefs = Preferences.userRoot();
+    prefs.remove("remembered_username");
+    prefs.remove("saved_password");  // Add this
+    prefs.remove("logged_in_session"); // Add this
+}
+    }//GEN-LAST:event_chkRememberMeActionPerformed
 
     /**
      * @param args the command line arguments

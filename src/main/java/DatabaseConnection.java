@@ -1,7 +1,9 @@
+package com.mycompany.studentmanagementsystem;
+// rest of code
 import java.sql.*;
 
 public class DatabaseConnection {
-    // Update these values based on your MySQL setup
+    // Update these values based on MySQL setup
     private static final String URL = "jdbc:mysql://localhost:3307/student_management?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String USER = "root";
     private static final String PASSWORD = "";  // Empty for XAMPP default
